@@ -33,6 +33,46 @@ Listar productos con filtro con el id de categoria, es el mismo endpoints anteri
 
 - GET - https://uuni4rg7z1.execute-api.us-east-1.amazonaws.com/dev/product/{idCategory}
 
+
+## Scripts de la base de datos
+
+```
+CREATE DATABASE sinapsis;
+use sinapsis;
+
+CREATE TABLE IF NOT EXISTS `product` (
+  id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  name varchar(50) NOT NULL,
+  category_id int NOT NULL,
+  description varchar(255),
+  color varchar(255),
+  price FLOAT NOT NULL,
+  quantity int NULL,
+  out_stock BOOLEAN DEFAULT true,
+  FOREIGN KEY (category_id) 
+	  REFERENCES category(id)
+	  ON UPDATE RESTRICT ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `category` (
+  id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  name varchar(50) NOT NULL,
+  description varchar(255)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+INSERT INTO sinapsis.category(name, description) VALUES('Juegos', 'Diversas consolas de fiderentes plataformas');
+INSERT INTO sinapsis.category(name, description) VALUES('Belleza', 'Diversas articulos de belleza para Hombres, Mujeres, ninnos, etc.');
+INSERT INTO sinapsis.category(name, description) VALUES('Calzados', 'Diversas articulos como zapatos, sandalias, zapatillas, etc.');
+INSERT INTO sinapsis.category(name, description) VALUES('Comida', 'Diversas articulos de comida, congelados, frutas, condimentos');
+
+```
+
+Como ya existen las categorias, solo se necesita saber el id de la categoria a asociar el producto, los datos de los diversos campos de Producto puede ser cualquiera que soporte el tipo de dato de los atributos.
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
 
